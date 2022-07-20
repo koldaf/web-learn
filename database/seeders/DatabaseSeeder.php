@@ -20,5 +20,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\Topic::create([
+            'topic' => 'Transformers',
+            'description' => 'In this unit, you will be introduced to the definition, purpose, types, and characteristics of the transformer. You will also be exposed to the principle of mutual induction.',
+            'length' => '45Mins',
+            'difficulty' => 'Easy'
+        ]);
+
+        \App\Models\Topic::create([
+            'topic' => 'Series and Parallel Connections',
+            'description' => 'Some Basic Descriptions',
+            'length' => '45Mins',
+            'difficulty' => 'Easy'
+        ]);
+
     }
 }

@@ -4,7 +4,15 @@
 <div class="card mb-3">
 
     <div class="card-body">
-
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
       <div class="pt-4 pb-2">
         <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
         <p class="text-center small">Complete this form to join the research</p>
@@ -41,7 +49,7 @@
         </div>
         <div class="col-12">
             <label for="yourPassword" class="form-label">Password Again</label>
-            <input type="password" name="password2" class="form-control" id="yourPassword" required>
+            <input type="password" name="password_confirmation" class="form-control" id="ConfirmYourPassword" required>
             <div class="invalid-feedback">Please enter your password again!</div>
           </div>
         <div class="col-12">
