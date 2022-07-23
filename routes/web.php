@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TopicController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +37,19 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/dashboard', [DashboardController::class, 'dashboard'] )->middleware('auth');
 
 Route::controller(TopicController::class)->group(function(){
-    Route::get('/transformer', 'transformer');
-    Route::get('/seriesandparallel', 'series');
-    Route::get('/electricmotor', 'electric');
-    Route::get('/conductors', 'conductor');
+    Route::get('/transformer', 'transformer')->middleware('auth');
+    Route::get('/seriesandparallel', 'series')->middleware('auth');
+    Route::get('/electricmotor', 'electric')->middleware('auth');
+    Route::get('/conductors', 'conductor')->middleware('auth');
 
 });
+
+//ExamsRoutes
+Route::controller(ExamController::class)->group(function(){
+    Route::get('/available-exams','list');
+    Route::get('/setup-exam', 'create');
+    Route::post('/setup-exam', 'store_exam');
+});
+
 
 //Route::post('register',[UserController::class, 'register'])->name('register');
