@@ -17,9 +17,10 @@ return new class extends Migration
         Schema::create('question_bank_details', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('exam_title', 64)->unique();
+            $table->string('exam_title', 64);//->unique();
             $table->text('file_link')->nullable();
             $table->enum('status',['Active','Inactive']);
+            $table->string('duration');
             $table->timestamps();
         });
     }

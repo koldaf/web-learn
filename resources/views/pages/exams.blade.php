@@ -1,4 +1,4 @@
-@extends('exams-layout')
+@extends('layouts.exams-layout')
 @section('content')
 <div class="pagetitle">
     <h1>Exams-Title</h1>

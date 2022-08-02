@@ -1,14 +1,20 @@
 <!doctype html>
 <html lang="en">
   <head>
-    @include('includes.head')
-  </head>
+
+
+<!-- Template Main CSS File -->
+<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    </head>
   <body>
         <main id="main" class="main">
             @yield('content')
         </main>
-        <footer>
-            @include('includes.footer')
-        </footer>
+
   </body>
+  <!-- Vendor JS Files -->
+
+
+
+
 </html>

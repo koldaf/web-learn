@@ -38,7 +38,7 @@
         </ul>
       </li><!-- End Components Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
+        <a class="nav-link collapsed" href="{{ url('/test') }}">
           <i class="bi bi-dash-circle"></i>
           <span>Test</span>
         </a>
