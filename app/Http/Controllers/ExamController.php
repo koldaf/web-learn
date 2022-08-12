@@ -53,19 +53,25 @@ class ExamController extends Controller
     }
 
     public function view_scores($exam){
-        $instances = QuestionInstance::where('question_bank_details_id', $exam)
-                                     ->where('status', 'Completed')
-                                     ->with('question_bank_details')
-                                     ->get();
-        dd($instances);
-        $exam_detail =QuestionBank::where('id', $exam)->first();
+
 
         //dd($exam_detail->toArray());
 
         return view('pages.view-score',[
-            'exam'=> $exam_detail->toArray(),
             'user' => auth()->user()
         ]);
+    }
+
+    public function calculate_score($qid, $resp){
+        $check = Question::where('id', $qid)
+                          ->where('correct_answer', $resp)
+                          ->count();
+        if($check > 0){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public function edit_quiz($exam){
