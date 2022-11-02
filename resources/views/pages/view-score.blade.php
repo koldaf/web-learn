@@ -37,8 +37,15 @@
                 </tr>
             </thead>
             <tbody>
-                @php $i = 0 @endphp
-
+                @php $i = 1 @endphp
+                @foreach ($scores as $key => $value)
+                    <tr>
+                        <td>{{ $i }}</td>
+                        <td>{{ $value['username'] }}</td>
+                        <td>{{ $value['score'] }}</td>
+                    </tr>
+                    @php $i++ @endphp
+                @endforeach
 
             </tbody>
         </table>

@@ -60,45 +60,34 @@ class ExamController extends Controller
                             ->toArray();
         //get list participants and their scores
         //participants
+        $scores = [];
         $all = User::all();
         foreach ($all as $user){
-            //get score for each users
-           //dd($user->id);
+            $score = ['username'=>$user->username, 'score' => $this->calculate_score($user->id, $exam[0]['id'])];
+            $scores[] = $score;
+            //array_push($scores, $score);
         }
-        dd($this->calculate_score(4, 1));
+        //dd($this->calculate_score(4, 1));
+        //dd(json_encode($scores));
         //array('user'=>x, 'score'=>y)
 
         return view('pages.view-score',[
             'user' => auth()->user(),
-            'exam' => $exam
+            'exam' => $exam,
+            'scores' => $scores
         ]);
     }
 
 
     public function calculate_score($userid, $instance){
-        // $grade = DB::table('question_user_responses')
-        //             ->join('questions','question_user_responses.question_id','=','questions.id')
-        //              ->where('question_user_responses.response', 'questions.correct_answer')
-        //              ->where('question_user_responses.instance_id', $instance)
-        //              ->where('question_user_responses.user_id', $userid)
-        //             ->count();
-        // $grade = DB::table('question_user_responses')
-        //     ->join('questions', function($join) use($instance, $userid){
-        //         $join->on('question_user_responses.question_id','=','questions.id')
-        //                 ->where('question_user_responses.response', 'questions.correct_answer')
-        //                 ->where('question_user_responses.instance_id', $instance)
-        //                 ->where('question_user_responses.user_id', $userid);
-        //     })
-        //     ->count();
-
-           $grade = DB::Raw("SELECT * FROM question_user_responses AS qua INNER JOIN questions AS q ON qua.question_id = q.id  WHERE qua.instance_id = '1' AND qua.user_id = '4' AND qua.response = q.correct_answer"); //->count();
-
-                    // ->join('contacts', function ($join) {
-                    //     $join->on('users.id', '=', 'contacts.user_id')
-                    //          ->where('contacts.user_id', '>', 5);
-                    // })
-                    //SELECT * FROM question_user_responses AS qua INNER JOIN questions AS q ON qua.question_id = q.id  WHERE qua.instance_id = '1' AND qua.user_id = '4' AND qua.response = q.correct_answer
-
+        //$grade = DB::table('question_user_responses');
+        $grade = QuestionUserResponse::query()
+                ->join('questions', fn($join)=>
+                        $join->on('question_user_responses.question_id','=','questions.id')
+                        ->whereColumn('question_user_responses.response', 'questions.correct_answer')
+                        ->where('question_user_responses.instance_id', $instance)
+                        ->where('question_user_responses.user_id',$userid)
+                    )->count();
         return $grade;
 
     }

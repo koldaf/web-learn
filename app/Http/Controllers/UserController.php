@@ -24,7 +24,7 @@ class UserController extends Controller
         // dd($validator);
 
         $data = request()->validate([
-            'username' => ['string', Rule::unique('users','name')],
+            'username' => ['string', Rule::unique('users','username')],
             'phone' => ['string'],
             'gender'=> ['string'],
             'password'=> ['string','confirmed', 'min:8']
